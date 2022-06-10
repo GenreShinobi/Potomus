@@ -11,7 +11,7 @@ jobs:
     name: Export Game
     steps:
     - name: checkout
-      uses: actions/checkout@v2.3.1
+      uses: actions/checkout@v3.0.2
     - name: export
       uses: firebelley/godot-export@v3.0.0
       with:

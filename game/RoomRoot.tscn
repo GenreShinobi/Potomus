@@ -1,0 +1,340 @@
+[gd_scene load_steps=5 format=2]
+
+[sub_resource type="CubeMesh" id=1]
+
+[sub_resource type="CubeMesh" id=2]
+
+[sub_resource type="Shader" id=3]
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
+
+[node name="Root" type="Spatial"]
+
+[node name="RoomManager" type="RoomManager" parent="."]
+roomlist = NodePath("../RoomList")
+
+[node name="RoomList" type="Spatial" parent="."]
+
+[node name="Intersection" type="Room" parent="RoomList"]
+
+[node name="Floor" type="MeshInstance" parent="RoomList/Intersection"]
+transform = Transform( 3.0171, 0, 0, 0, 0.0902194, 0, 0, 0, 3.00088, 0, 0, 0 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="Wall" type="MeshInstance" parent="RoomList/Intersection"]
+transform = Transform( 0.0946402, 0, 0, 0, 2.22794, 0, 0, 0, 0.88766, 2.90569, 2.21879, -2.08868 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall2" type="MeshInstance" parent="RoomList/Intersection"]
+transform = Transform( 0.0946402, 0, 0, 0, 2.22794, 0, 0, 0, 0.88766, 2.89362, 2.21047, 2.12941 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall3" type="MeshInstance" parent="RoomList/Intersection"]
+transform = Transform( 0.0946402, 0, 0, 0, 2.22794, 0, 0, 0, 0.88766, -2.87743, 2.21879, -2.08868 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall4" type="MeshInstance" parent="RoomList/Intersection"]
+transform = Transform( 0.0946402, 0, 0, 0, 2.22794, 0, 0, 0, 0.88766, -2.8895, 2.21047, 2.12941 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall5" type="MeshInstance" parent="RoomList/Intersection"]
+transform = Transform( 0.000847353, 0, -0.887625, 0, 2.22794, 0, 0.0946364, 0, 0.00794758, 2.0737, 2.20712, 2.88784 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall6" type="MeshInstance" parent="RoomList/Intersection"]
+transform = Transform( 0.000847353, 0, -0.887625, 0, 2.22794, 0, 0.0946364, 0, 0.00794758, -2.14433, 2.1988, 2.91354 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall7" type="MeshInstance" parent="RoomList/Intersection"]
+transform = Transform( 0.000847353, 0, -0.887625, 0, 2.22794, 0, 0.0946364, 0, 0.00794758, 2.13269, 2.20712, -2.9 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall8" type="MeshInstance" parent="RoomList/Intersection"]
+transform = Transform( 0.000847353, 0, -0.887625, 0, 2.22794, 0, 0.0946364, 0, 0.00794758, -2.08534, 2.1988, -2.87431 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="TSection" type="Room" parent="RoomList"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.95612, 0, 0 )
+
+[node name="Floor" type="MeshInstance" parent="RoomList/TSection"]
+transform = Transform( 3.0171, 0, 0, 0, 0.0902194, 0, 0, 0, 3.00088, 0, 0, 0 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 4 )
+
+[node name="Wall" type="MeshInstance" parent="RoomList/TSection"]
+transform = Transform( 0.0946402, 0, 0, 0, 2.22794, 0, 0, 0, 2.96715, 2.90569, 2.21879, -0.0321335 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall3" type="MeshInstance" parent="RoomList/TSection"]
+transform = Transform( 0.0946402, 0, 0, 0, 2.22794, 0, 0, 0, 0.88766, -2.87743, 2.21879, -2.08868 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall4" type="MeshInstance" parent="RoomList/TSection"]
+transform = Transform( 0.0946402, 0, 0, 0, 2.22794, 0, 0, 0, 0.88766, -2.8895, 2.21047, 2.12941 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall5" type="MeshInstance" parent="RoomList/TSection"]
+transform = Transform( 0.000847353, 0, -0.887625, 0, 2.22794, 0, 0.0946364, 0, 0.00794758, 2.0737, 2.20712, 2.88784 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall6" type="MeshInstance" parent="RoomList/TSection"]
+transform = Transform( 0.000847353, 0, -0.887625, 0, 2.22794, 0, 0.0946364, 0, 0.00794758, -2.14433, 2.1988, 2.91354 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall7" type="MeshInstance" parent="RoomList/TSection"]
+transform = Transform( 0.000847353, 0, -0.887625, 0, 2.22794, 0, 0.0946364, 0, 0.00794758, 2.13269, 2.20712, -2.9 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall8" type="MeshInstance" parent="RoomList/TSection"]
+transform = Transform( 0.000847353, 0, -0.887625, 0, 2.22794, 0, 0.0946364, 0, 0.00794758, -2.08534, 2.1988, -2.87431 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="DeadEnd" type="Room" parent="RoomList"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.95612, 0, -5.78921 )
+
+[node name="Floor" type="MeshInstance" parent="RoomList/DeadEnd"]
+transform = Transform( 3.0171, 0, 0, 0, 0.0902194, 0, 0, 0, 3.00088, 0, 0, 0 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 4 )
+
+[node name="Wall" type="MeshInstance" parent="RoomList/DeadEnd"]
+transform = Transform( 0.0946402, 0, 0, 0, 2.22794, 0, 0, 0, 2.96715, 2.90569, 2.21879, -0.0321335 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall2" type="MeshInstance" parent="RoomList/DeadEnd"]
+transform = Transform( 0.0946402, 0, 0, 0, 2.22794, 0, 0, 0, 2.96715, -2.88352, 2.21879, -0.0321336 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall3" type="MeshInstance" parent="RoomList/DeadEnd"]
+transform = Transform( -4.13686e-09, 0, 2.96715, 0, 2.22794, 0, -0.0946402, 0, -1.29698e-07, -0.0117078, 2.21879, -2.85836 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall5" type="MeshInstance" parent="RoomList/DeadEnd"]
+transform = Transform( 0.000847353, 0, -0.887625, 0, 2.22794, 0, 0.0946364, 0, 0.00794758, 2.0737, 2.20712, 2.88784 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall6" type="MeshInstance" parent="RoomList/DeadEnd"]
+transform = Transform( 0.000847353, 0, -0.887625, 0, 2.22794, 0, 0.0946364, 0, 0.00794758, -2.14433, 2.1988, 2.91354 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Portal" type="Portal" parent="RoomList/DeadEnd"]
+transform = Transform( -1, 0, -1.6034e-07, 0, 1, 0, 5.93421e-08, 0, -1.24496, 4.76837e-07, 1.98546, 2.85222 )
+
+[node name="Turn" type="Room" parent="RoomList"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5.95612, 0, 5.97721 )
+
+[node name="Floor" type="MeshInstance" parent="RoomList/Turn"]
+transform = Transform( 3.0171, 0, 0, 0, 0.0902194, 0, 0, 0, 3.00088, 0, 0, 0 )
+visible = false
+mesh = SubResource( 1 )
+material/0 = SubResource( 4 )
+
+[node name="Wall" type="MeshInstance" parent="RoomList/Turn"]
+transform = Transform( 0.0946402, 0, 0, 0, 2.22794, 0, 0, 0, 2.96715, 2.90569, 2.21879, -0.0321335 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall3" type="MeshInstance" parent="RoomList/Turn"]
+transform = Transform( 0.0946402, 0, 0, 0, 2.22794, 0, 0, 0, 0.88766, -2.87743, 2.21879, -2.08868 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall4" type="MeshInstance" parent="RoomList/Turn"]
+transform = Transform( 0.0946402, 0, 0, 0, 2.22794, 0, 0, 0, 0.88766, -2.8895, 2.21047, 2.12941 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall6" type="MeshInstance" parent="RoomList/Turn"]
+transform = Transform( 0.00284035, 0, -2.97534, 0, 2.22794, 0, 0.0946364, 0, 0.00794758, 0.010108, 2.1988, 2.91354 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall7" type="MeshInstance" parent="RoomList/Turn"]
+transform = Transform( 0.000847353, 0, -0.887625, 0, 2.22794, 0, 0.0946364, 0, 0.00794758, 2.13269, 2.20712, -2.9 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall8" type="MeshInstance" parent="RoomList/Turn"]
+transform = Transform( 0.000847353, 0, -0.887625, 0, 2.22794, 0, 0.0946364, 0, 0.00794758, -2.08534, 2.1988, -2.87431 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="HallEndWithDoor" type="Room" parent="RoomList"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.9036, 0, 5.97721 )
+
+[node name="Floor" type="MeshInstance" parent="RoomList/HallEndWithDoor"]
+transform = Transform( 3.0171, 0, 0, 0, 0.0902194, 0, 0, 0, 3.00088, 0, 0, 0 )
+visible = false
+mesh = SubResource( 1 )
+material/0 = SubResource( 4 )
+
+[node name="Wall" type="MeshInstance" parent="RoomList/HallEndWithDoor"]
+transform = Transform( -4.13686e-09, 0, -2.96715, 0, 2.22794, 0, 0.0946402, 0, -1.29698e-07, 0.0708122, 2.21879, -2.88027 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall3" type="MeshInstance" parent="RoomList/HallEndWithDoor"]
+transform = Transform( 0.0946402, 0, 0, 0, 2.22794, 0, 0, 0, 0.88766, -2.87743, 2.21879, -2.08868 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall4" type="MeshInstance" parent="RoomList/HallEndWithDoor"]
+transform = Transform( 0.0946402, 0, 0, 0, 2.22794, 0, 0, 0, 0.88766, -2.8895, 2.21047, 2.12941 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall6" type="MeshInstance" parent="RoomList/HallEndWithDoor"]
+transform = Transform( 0.00284035, 0, -2.97534, 0, 2.22794, 0, 0.0946364, 0, 0.00794758, 0.010108, 2.1988, 2.91354 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Hall" type="Room" parent="RoomList"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.8878, 0, 5.97721 )
+
+[node name="Floor" type="MeshInstance" parent="RoomList/Hall"]
+transform = Transform( 3.0171, 0, 0, 0, 0.0902194, 0, 0, 0, 3.00088, 0, 0, 0 )
+visible = false
+mesh = SubResource( 1 )
+material/0 = SubResource( 4 )
+
+[node name="Wall" type="MeshInstance" parent="RoomList/Hall"]
+transform = Transform( -4.13686e-09, 0, -2.96715, 0, 2.22794, 0, 0.0946402, 0, -1.29698e-07, 0.0708122, 2.21879, -2.88027 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall6" type="MeshInstance" parent="RoomList/Hall"]
+transform = Transform( 0.00284035, 0, -2.97534, 0, 2.22794, 0, 0.0946364, 0, 0.00794758, 0.010108, 2.1988, 2.91354 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="HallTurn" type="Room" parent="RoomList"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 23.7011, 0, 5.97721 )
+
+[node name="Floor" type="MeshInstance" parent="RoomList/HallTurn"]
+transform = Transform( 3.0171, 0, 0, 0, 0.0902194, 0, 0, 0, 3.00088, 0, 0, 0 )
+visible = false
+mesh = SubResource( 1 )
+material/0 = SubResource( 4 )
+
+[node name="Wall" type="MeshInstance" parent="RoomList/HallTurn"]
+transform = Transform( 0.0946402, 0, 0, 0, 2.22794, 0, 0, 0, 2.96715, 2.8918, 2.21879, -0.00768709 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall6" type="MeshInstance" parent="RoomList/HallTurn"]
+transform = Transform( 0.00284035, 0, -2.97534, 0, 2.22794, 0, 0.0946364, 0, 0.00794758, 0.010108, 2.1988, 2.91354 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="HallOneDoor" type="Room" parent="RoomList"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 23.6867, 0, 0.0509586 )
+
+[node name="Floor" type="MeshInstance" parent="RoomList/HallOneDoor"]
+transform = Transform( 3.0171, 0, 0, 0, 0.0902194, 0, 0, 0, 3.00088, 0, 0, 0 )
+visible = false
+mesh = SubResource( 1 )
+material/0 = SubResource( 4 )
+
+[node name="Wall" type="MeshInstance" parent="RoomList/HallOneDoor"]
+transform = Transform( -4.13686e-09, 0, -2.96715, 0, 2.22794, 0, 0.0946402, 0, -1.29698e-07, 0.0708122, 2.21879, -2.88027 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall5" type="MeshInstance" parent="RoomList/HallOneDoor"]
+transform = Transform( -4.13686e-09, 0, -0.88766, 0, 2.22794, 0, 0.0946402, 0, -3.88009e-08, 2.15771, 2.21879, 2.92404 )
+mesh = SubResource( 2 )
+skeleton = NodePath("../../HallEndWithDoor")
+material/0 = null
+
+[node name="Wall7" type="MeshInstance" parent="RoomList/HallOneDoor"]
+transform = Transform( -4.13686e-09, 0, -0.88766, 0, 2.22794, 0, 0.0946402, 0, -3.88009e-08, -2.06038, 2.21047, 2.91197 )
+mesh = SubResource( 2 )
+skeleton = NodePath("../../HallEndWithDoor")
+material/0 = null
+
+[node name="HallTwoDoor" type="Room" parent="RoomList"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 23.6867, 0, -5.87957 )
+
+[node name="Floor" type="MeshInstance" parent="RoomList/HallTwoDoor"]
+transform = Transform( 3.0171, 0, 0, 0, 0.0902194, 0, 0, 0, 3.00088, 0, 0, 0 )
+visible = false
+mesh = SubResource( 1 )
+material/0 = SubResource( 4 )
+
+[node name="Wall5" type="MeshInstance" parent="RoomList/HallTwoDoor"]
+transform = Transform( -4.13686e-09, 0, -0.88766, 0, 2.22794, 0, 0.0946402, 0, -3.88009e-08, 2.15771, 2.21879, 2.92404 )
+mesh = SubResource( 2 )
+skeleton = NodePath("../../HallEndWithDoor")
+material/0 = null
+
+[node name="Wall7" type="MeshInstance" parent="RoomList/HallTwoDoor"]
+transform = Transform( -4.13686e-09, 0, -0.88766, 0, 2.22794, 0, 0.0946402, 0, -3.88009e-08, -2.06038, 2.21047, 2.91197 )
+mesh = SubResource( 2 )
+skeleton = NodePath("../../HallEndWithDoor")
+material/0 = null
+
+[node name="Wall6" type="MeshInstance" parent="RoomList/HallTwoDoor"]
+transform = Transform( -4.13686e-09, 0, -0.88766, 0, 2.22794, 0, 0.0946402, 0, -3.88009e-08, 2.15771, 2.21879, -2.83896 )
+mesh = SubResource( 2 )
+skeleton = NodePath("../../HallEndWithDoor")
+material/0 = null
+
+[node name="Wall8" type="MeshInstance" parent="RoomList/HallTwoDoor"]
+transform = Transform( -4.13686e-09, 0, -0.88766, 0, 2.22794, 0, 0.0946402, 0, -3.88009e-08, -2.06038, 2.21047, -2.85103 )
+mesh = SubResource( 2 )
+skeleton = NodePath("../../HallEndWithDoor")
+material/0 = null
+
+[node name="HallDeadEnd" type="Room" parent="RoomList"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 23.7011, 0, -11.9359 )
+
+[node name="Floor" type="MeshInstance" parent="RoomList/HallDeadEnd"]
+transform = Transform( 3.0171, 0, 0, 0, 0.0902194, 0, 0, 0, 3.00088, 0, 0, 0 )
+visible = false
+mesh = SubResource( 1 )
+material/0 = SubResource( 4 )
+
+[node name="Wall" type="MeshInstance" parent="RoomList/HallDeadEnd"]
+transform = Transform( 0.0946402, 0, 0, 0, 2.22794, 0, 0, 0, 2.96715, 2.8918, 2.21879, -0.00768709 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall6" type="MeshInstance" parent="RoomList/HallDeadEnd"]
+transform = Transform( 0.00284035, 0, -2.97534, 0, 2.22794, 0, 0.0946364, 0, 0.00794758, 0.010108, 2.1988, 2.91354 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Wall7" type="MeshInstance" parent="RoomList/HallDeadEnd"]
+transform = Transform( 0.00284035, 0, -2.97534, 0, 2.22794, 0, 0.0946364, 0, 0.00794758, 0.010108, 2.1988, -2.84947 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="HallDeadEnd2" type="Room" parent="RoomList"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11.8379, 0, -0.000326157 )
+
+[node name="Floor" type="MeshInstance" parent="RoomList/HallDeadEnd2"]
+transform = Transform( 3.0171, 0, 0, 0, 0.0902194, 0, 0, 0, 3.00088, 0, 0, 0 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 4 )
