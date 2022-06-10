@@ -2,8 +2,6 @@ on:
   push:
     branches:
       - master
-    paths:
-      - 'game/**'
 
 jobs:
   export_game:
