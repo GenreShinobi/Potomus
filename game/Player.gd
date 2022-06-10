@@ -15,5 +15,3 @@ func getInput():
 	
 	if Input.is_action_pressed("move_forward"):
 		velocity.z -= speed
-
-# Testing Export Workflow
