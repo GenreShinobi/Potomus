@@ -2,6 +2,8 @@ extends Spatial
 
 const Cell = preload("res://Cell.tscn")
 
+onready var room_list = $RoomList
+
 export(PackedScene) var Map
 
 var cells = []
@@ -19,8 +21,10 @@ func generate_map():
 	map.free() 
 	for tile in used_tiles:
 		var cell = Cell.instance()
-		add_child(cell)
+		room_list.add_child(cell)
 		cell.translation = Vector3(tile.x * Globals.GRID_SIZE, 0, tile.y * Globals.GRID_SIZE)
+		cell.xCord = tile.x * Globals.GRID_SIZE
+		cell.yCord = tile.y * Globals.GRID_SIZE
 		cells.append(cell)
 	for cell in cells:
 		cell.update_faces(used_tiles)

@@ -81,6 +81,14 @@ collision_mask = 4
 collide_with_areas = true
 collide_with_bodies = false
 
+[node name="RayDown" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+enabled = true
+cast_to = Vector3( 0, -2, 0 )
+collision_mask = 32
+collide_with_areas = true
+collide_with_bodies = false
+
 [node name="SpotLight" type="SpotLight" parent="."]
 light_color = Color( 0.941176, 0.937255, 0.894118, 1 )
 light_energy = 2.0

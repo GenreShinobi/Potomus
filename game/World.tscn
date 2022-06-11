@@ -4,9 +4,12 @@
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Map.tscn" type="PackedScene" id=3]
 
-[node name="World" type="Spatial"]
+[node name="World" type="RoomManager" groups=["world"]]
+roomlist = NodePath("RoomList")
 script = ExtResource( 1 )
 Map = ExtResource( 3 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0 )
+
+[node name="RoomList" type="Spatial" parent="."]
