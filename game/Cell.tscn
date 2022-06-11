@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Cell.gd" type="Script" id=1]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_color = Color( 0.47451, 0.4, 0.4, 1 )
+
+[sub_resource type="QuadMesh" id=2]
+material = SubResource( 1 )
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 0.5, 0.5, 0.5 )
+
+[node name="Cell" type="Area"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource( 1 )
+
+[node name="TopFace" type="MeshInstance" parent="."]
+transform = Transform( 1.98655, 0, 0, 0, -4.13499e-08, -0.945975, 0, 1.98655, -8.68348e-08, 0, 2, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="NorthFace" type="MeshInstance" parent="."]
+transform = Transform( 1.98655, 0, 0, 0, 1.98655, 0, 0, 0, 0.945975, 0, 1, -1 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="EastFace" type="MeshInstance" parent="."]
+transform = Transform( 3.79567e-15, 1.7367e-07, -0.945975, -8.68348e-08, -1.98655, -8.26998e-08, -1.98655, 8.68348e-08, 1.80746e-15, 1, 1, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="SouthFace" type="MeshInstance" parent="."]
+transform = Transform( 1.98655, 0, 0, 0, -1.98655, -8.26998e-08, 0, 1.7367e-07, -0.945975, 0, 1, 1 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="WestFace" type="MeshInstance" parent="."]
+transform = Transform( -8.68348e-08, -1.7367e-07, 0.945975, 0, -1.98655, -8.26998e-08, 1.98655, -7.59134e-15, 4.13499e-08, -1, 1, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="BottomFace" type="MeshInstance" parent="."]
+transform = Transform( 3.79567e-15, 1.98655, 4.13499e-08, -8.68348e-08, -8.68348e-08, 0.945975, 1.98655, -7.59134e-15, 4.13499e-08, 0, 0, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+shape = SubResource( 3 )

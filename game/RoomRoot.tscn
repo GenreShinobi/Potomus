@@ -1,8 +1,14 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 
 [sub_resource type="CubeMesh" id=1]
 
 [sub_resource type="CubeMesh" id=2]
+
+[sub_resource type="PhysicsMaterial" id=6]
+
+[sub_resource type="BoxShape" id=5]
 
 [sub_resource type="Shader" id=3]
 
@@ -19,7 +25,7 @@ roomlist = NodePath("../RoomList")
 [node name="Intersection" type="Room" parent="RoomList"]
 
 [node name="Floor" type="MeshInstance" parent="RoomList/Intersection"]
-transform = Transform( 3.0171, 0, 0, 0, 0.0902194, 0, 0, 0, 3.00088, 0, 0, 0 )
+transform = Transform( 26.6211, 0, 0, 0, 0.0902194, 0, 0, 0, 15.7754, 0, 0, 0 )
 mesh = SubResource( 1 )
 material/0 = null
 
@@ -62,6 +68,13 @@ material/0 = null
 transform = Transform( 0.000847353, 0, -0.887625, 0, 2.22794, 0, 0.0946364, 0, 0.00794758, -2.08534, 2.1988, -2.87431 )
 mesh = SubResource( 2 )
 material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="RoomList/Intersection"]
+transform = Transform( 11.0472, 0, 0, 0, 1, 0, 0, 0, 7.75162, 0, 0, 0 )
+physics_material_override = SubResource( 6 )
+
+[node name="CollisionShape" type="CollisionShape" parent="RoomList/Intersection/StaticBody"]
+shape = SubResource( 5 )
 
 [node name="TSection" type="Room" parent="RoomList"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.95612, 0, 0 )
@@ -147,7 +160,6 @@ transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5.95612
 
 [node name="Floor" type="MeshInstance" parent="RoomList/Turn"]
 transform = Transform( 3.0171, 0, 0, 0, 0.0902194, 0, 0, 0, 3.00088, 0, 0, 0 )
-visible = false
 mesh = SubResource( 1 )
 material/0 = SubResource( 4 )
 
@@ -186,7 +198,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.9036, 0, 5.97721 )
 
 [node name="Floor" type="MeshInstance" parent="RoomList/HallEndWithDoor"]
 transform = Transform( 3.0171, 0, 0, 0, 0.0902194, 0, 0, 0, 3.00088, 0, 0, 0 )
-visible = false
 mesh = SubResource( 1 )
 material/0 = SubResource( 4 )
 
@@ -215,7 +226,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.8878, 0, 5.97721 )
 
 [node name="Floor" type="MeshInstance" parent="RoomList/Hall"]
 transform = Transform( 3.0171, 0, 0, 0, 0.0902194, 0, 0, 0, 3.00088, 0, 0, 0 )
-visible = false
 mesh = SubResource( 1 )
 material/0 = SubResource( 4 )
 
@@ -234,7 +244,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 23.7011, 0, 5.97721 )
 
 [node name="Floor" type="MeshInstance" parent="RoomList/HallTurn"]
 transform = Transform( 3.0171, 0, 0, 0, 0.0902194, 0, 0, 0, 3.00088, 0, 0, 0 )
-visible = false
 mesh = SubResource( 1 )
 material/0 = SubResource( 4 )
 
@@ -253,7 +262,6 @@ transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 23.6867
 
 [node name="Floor" type="MeshInstance" parent="RoomList/HallOneDoor"]
 transform = Transform( 3.0171, 0, 0, 0, 0.0902194, 0, 0, 0, 3.00088, 0, 0, 0 )
-visible = false
 mesh = SubResource( 1 )
 material/0 = SubResource( 4 )
 
@@ -279,7 +287,6 @@ transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 23.6867
 
 [node name="Floor" type="MeshInstance" parent="RoomList/HallTwoDoor"]
 transform = Transform( 3.0171, 0, 0, 0, 0.0902194, 0, 0, 0, 3.00088, 0, 0, 0 )
-visible = false
 mesh = SubResource( 1 )
 material/0 = SubResource( 4 )
 
@@ -312,7 +319,6 @@ transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 23.7011
 
 [node name="Floor" type="MeshInstance" parent="RoomList/HallDeadEnd"]
 transform = Transform( 3.0171, 0, 0, 0, 0.0902194, 0, 0, 0, 3.00088, 0, 0, 0 )
-visible = false
 mesh = SubResource( 1 )
 material/0 = SubResource( 4 )
 
@@ -338,3 +344,6 @@ transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11.8379
 transform = Transform( 3.0171, 0, 0, 0, 0.0902194, 0, 0, 0, 3.00088, 0, 0, 0 )
 mesh = SubResource( 1 )
 material/0 = SubResource( 4 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04122, 0 )
