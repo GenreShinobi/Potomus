@@ -12,10 +12,16 @@ _global_script_classes=[ {
 "base": "Area",
 "class": "Cell",
 "language": "GDScript",
-"path": "res://Cell.gd"
+"path": "res://cell/Cell.gd"
+}, {
+"base": "Spatial",
+"class": "Player",
+"language": "GDScript",
+"path": "res://player/player.gd"
 } ]
 _global_script_class_icons={
-"Cell": ""
+"Cell": "",
+"Player": ""
 }
 
 [application]

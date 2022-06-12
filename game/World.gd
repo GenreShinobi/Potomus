@@ -1,6 +1,6 @@
 extends Spatial
 
-const Cell = preload("res://Cell.tscn")
+const Cell = preload("res://cell/Cell.tscn")
 
 onready var room_list = $RoomList
 

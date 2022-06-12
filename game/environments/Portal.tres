@@ -1,0 +1,8 @@
+[gd_resource type="Environment" format=2]
+
+[resource]
+tonemap_exposure = 0.21
+adjustment_enabled = true
+adjustment_brightness = 1.67
+adjustment_contrast = 1.24
+adjustment_saturation = 8.0
