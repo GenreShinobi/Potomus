@@ -1,6 +1,8 @@
 extends Spatial
 class_name Player
 
+var CELL = load("res://cells/cell.tscn")
+
 onready var timerProcessor: = $Timer
 onready var tween: = $Tween
 onready var forward: = $RayForward
@@ -20,7 +22,8 @@ func _ready() -> void:
 
 func _physics_process(_delta):
 	if current_cell != null:
-		current_cell.update_faces_again()
+		current_cell.update_faces_again(world.maze_cells)
+#		current_cell.update_faces_again(world.hall_cells)
 
 func collision_check(direction):
 	if direction != null:
@@ -31,15 +34,18 @@ func collision_check(direction):
 func player_check():
 	var chasing_cam = get_tree().get_nodes_in_group("chasing_portal")[0]
 	var player = get_tree().get_nodes_in_group("player")[0]
+	var hall = get_tree().get_nodes_in_group("hall")[0]
+	var world = get_tree().get_nodes_in_group("world")[0]
 	if down.get_collider() != current_cell:
-		previous_cell = current_cell
 		current_cell = down.get_collider()
 		if chasing_cam != null and previous_cell != null:
 			chasing_cam.global_transform.origin = player.global_transform.origin
 			chasing_cam.set_rotation(player.get_rotation()+Vector3(0,PI,0))
-		if previous_cell != null and current_cell != previous_cell:
-			#previous_cell.queue_free()
-			pass
+		if current_cell != previous_cell:
+			if previous_cell != null:
+				print("Current: " + String(current_cell.get_instance_id()) + " Previous: " + String(previous_cell.get_instance_id()))
+				world.add_new_cell_to_hall(previous_cell)
+			previous_cell = current_cell
 	
 func get_direction(direction):
 	if not direction is RayCast: return
@@ -75,6 +81,7 @@ func _on_Timer_timeout() -> void:
 	
 	if GO_W:
 		ray_dir = forward
+		
 	elif turn_dir:
 		timerProcessor.stop()
 		yield(tween_rotation(PI/2 * turn_dir), "completed")

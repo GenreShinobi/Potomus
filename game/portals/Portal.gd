@@ -5,61 +5,62 @@ export var color = Color.white
 
 onready var _player = get_tree().get_nodes_in_group("player")[0]
 onready var _player_cam = get_tree().get_nodes_in_group("player_cam")[0] as Camera
-onready var _player_cam_ray = get_tree().get_nodes_in_group("player_cam_ray")[0] as RayCast
+#onready var _player_cam_ray = get_tree().get_nodes_in_group("player_cam_ray")[0] as RayCast
 var other_portal
 var other_portal_cam
 
 var tracked_bodies = []
 
 func _ready():
-	for portal in get_tree().get_nodes_in_group("portal"):
-		if portal.name != name:
-			other_portal = portal
-			other_portal_cam = portal.get_node("CamTransform")
-			
-	$Meshes/Front.mesh.surface_get_material(0).set_shader_param("texture_albedo", other_portal.get_node("Viewport").get_texture())
-	$Meshes/Front.material_override = $Meshes/Front.mesh.surface_get_material(0).duplicate()
-	
-	var stream_texture = load("res://portals/portal.png")
-	var overlay_tex = ImageTexture.new()
-	var overlay_img = Image.new()
-	overlay_img = stream_texture.get_data()
-	overlay_img.lock()
-	overlay_tex.create_from_image(overlay_img, 1)
-	
-	$Meshes/Front.material_override.set_shader_param("overlay", overlay_tex)
-	$Meshes/Front.material_override.set_shader_param("modulate", color)
+	pass
 
 func _process(delta):
-	# Set the portal's camera transform to the player's camera relative to the other portal
-	var trans = other_portal.global_transform.inverse() * _player_cam.global_transform
-	# Rotate by 180 degrees around and up axis because the camera should be facing the opposite way (180 degrees) at the other portal
-	trans = trans.rotated(Vector3.UP, PI)
-	$CamTransform.transform = trans
-	
-	# Set the size of this portal's viewport to the size of the root viewport
-	$Viewport.size = get_viewport().size
-	
-	# the next two lines are for getting the porta's normal
-	# Theres probably an easier way to get the normal but I don't know how...
-	var rot = global_transform.basis.get_euler()
-	var normal = Vector3(0,0,1).rotated(Vector3(1,0,0), rot.x).rotated(Vector3(0,1,0), rot.y).rotated(Vector3(0,0,1), rot.z)
-	
-	# Loop through all tracked bodies
-	for body in tracked_bodies:
-		# Get the direction from the front face of the portal to the body
-		var body_dir = $Meshes/Front.global_transform.origin - body.global_transform.origin
+	if other_portal == null:
+		for portal in get_tree().get_nodes_in_group("portal"):
+			if portal.name != name:
+				other_portal = portal
+				other_portal_cam = portal.get_node("CamTransform")
+				$Meshes/Front.mesh.surface_get_material(0).set_shader_param("texture_albedo", other_portal.get_node("Viewport").get_texture())
+				$Meshes/Front.material_override = $Meshes/Front.mesh.surface_get_material(0).duplicate()
+				var stream_texture = load("res://portals/portal.png")
+				var overlay_tex = ImageTexture.new()
+				var overlay_img = Image.new()
+				overlay_img = stream_texture.get_data()
+				overlay_img.lock()
+				overlay_tex.create_from_image(overlay_img, 1)
+				
+				$Meshes/Front.material_override.set_shader_param("overlay", overlay_tex)
+				$Meshes/Front.material_override.set_shader_param("modulate", color)
+	else:
+		# Set the portal's camera transform to the player's camera relative to the other portal
+		var trans = other_portal.global_transform.inverse() * _player_cam.global_transform
+		# Rotate by 180 degrees around and up axis because the camera should be facing the opposite way (180 degrees) at the other portal
+		trans = trans.rotated(Vector3.UP, PI)
+		$CamTransform.transform = trans
 		
-		# If the body is a player
-		# then get the firection of the front face of the portal to the player's camera rather than the player itself.
-		if body is Player:
-			body_dir = $Meshes/Front. global_transform.origin - _player_cam.global_transofrm.origin
+		# Set the size of this portal's viewport to the size of the root viewport
+		$Viewport.size = get_viewport().size
 		
-		# If the angle between the direction to the body and
-		# the portal's normal is < 90 degrees (the body is behind the portal),
-		# then teleport the body to the other portal
-		if normal.dog(body_dir) > 0:
-			_teleport_to_other_portal(body)
+		# the next two lines are for getting the porta's normal
+		# Theres probably an easier way to get the normal but I don't know how...
+		var rot = global_transform.basis.get_euler()
+		var normal = Vector3(0,0,1).rotated(Vector3(1,0,0), rot.x).rotated(Vector3(0,1,0), rot.y).rotated(Vector3(0,0,1), rot.z)
+		
+		# Loop through all tracked bodies
+		for body in tracked_bodies:
+			# Get the direction from the front face of the portal to the body
+			var body_dir = $Meshes/Front.global_transform.origin - body.global_transform.origin
+			
+			# If the body is a player
+			# then get the firection of the front face of the portal to the player's camera rather than the player itself.
+			if body is Player:
+				body_dir = $Meshes/Front. global_transform.origin - _player_cam.global_transofrm.origin
+			
+			# If the angle between the direction to the body and
+			# the portal's normal is < 90 degrees (the body is behind the portal),
+			# then teleport the body to the other portal
+			if normal.dog(body_dir) > 0:
+				_teleport_to_other_portal(body)
 
 func _teleport_to_other_portal(body):
 	# Remove the body from being tracked by the portal

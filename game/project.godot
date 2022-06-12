@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Area",
 "class": "Cell",
 "language": "GDScript",
-"path": "res://cell/Cell.gd"
+"path": "res://cells/cell.gd"
 }, {
 "base": "Spatial",
 "class": "Player",

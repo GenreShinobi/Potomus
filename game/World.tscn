@@ -3,32 +3,22 @@
 [ext_resource path="res://World.gd" type="Script" id=1]
 [ext_resource path="res://player/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://map/Map.tscn" type="PackedScene" id=3]
-[ext_resource path="res://portals/Portal.tscn" type="PackedScene" id=4]
-[ext_resource path="res://cell/Cell.tscn" type="PackedScene" id=5]
+[ext_resource path="res://portals/portal.tscn" type="PackedScene" id=4]
+[ext_resource path="res://map/Hall.tscn" type="PackedScene" id=6]
 
 [node name="World" type="Spatial" groups=["world"]]
 script = ExtResource( 1 )
 Map = ExtResource( 3 )
+Hall = ExtResource( 6 )
 
-[node name="Player" parent="." groups=["player"] instance=ExtResource( 2 )]
+[node name="Player" parent="." instance=ExtResource( 2 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0 )
-
-[node name="Cell" parent="." instance=ExtResource( 5 )]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1, 0, 100 )
-north_is_on = false
-
-[node name="Cell2" parent="." instance=ExtResource( 5 )]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1, 0, 100 )
-south_is_on = false
 
 [node name="Portals" type="Spatial" parent="."]
 
-[node name="A" parent="Portals" groups=["back_portal", "portal"] instance=ExtResource( 4 )]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1, 0, 100 )
-
-[node name="B" parent="Portals" groups=["chasing_portal", "portal"] instance=ExtResource( 4 )]
+[node name="B" parent="Portals" groups=["chasing_portal"] instance=ExtResource( 4 )]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 0, 1, -64.84 )
 
 [node name="Maze" type="Spatial" parent="."]
 
-[node name="Hall" type="Spatial" parent="."]
+[node name="Hall" type="Spatial" parent="." groups=["hall"]]
