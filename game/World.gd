@@ -2,9 +2,10 @@ extends Spatial
 
 const Cell = preload("res://cell/Cell.tscn")
 
-onready var room_list = $RoomList
+onready var maze = $Maze
 
-export(PackedScene) var Map
+export (PackedScene) var Map
+
 
 var cells = []
 
@@ -21,7 +22,7 @@ func generate_map():
 	map.free() 
 	for tile in used_tiles:
 		var cell = Cell.instance()
-		room_list.add_child(cell)
+		maze.add_child(cell)
 		cell.translation = Vector3(tile.x * Globals.GRID_SIZE, 0, tile.y * Globals.GRID_SIZE)
 		cell.xCord = tile.x * Globals.GRID_SIZE
 		cell.yCord = tile.y * Globals.GRID_SIZE
