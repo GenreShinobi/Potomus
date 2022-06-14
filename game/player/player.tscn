@@ -192,4 +192,7 @@ texture = SubResource( 4 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.602363, 0 )
 shape = SubResource( 3 )
 
+[node name="DropPoint" type="RayCast" parent="."]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 4 )
+
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

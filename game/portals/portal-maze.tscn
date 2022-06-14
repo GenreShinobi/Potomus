@@ -35,7 +35,8 @@ size = Vector2( 2, 2 )
 [sub_resource type="BoxShape" id=8]
 extents = Vector3( 0.5, 0.5, 0.5 )
 
-[node name="Portal2" type="Area" groups=["portal"]]
+[node name="PortalMaze" type="Area" groups=["portal"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
 collision_layer = 2048
 collision_mask = 2048
 script = ExtResource( 1 )
@@ -49,15 +50,18 @@ material/0 = null
 
 [node name="CamTransform" type="RemoteTransform" parent="."]
 transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.999454, -1 )
-remote_path = NodePath("../Viewport/Camera")
+remote_path = NodePath("../Viewport/Spatial/Camera")
 
 [node name="Viewport" type="Viewport" parent="."]
 size = Vector2( 5, 5 )
 fxaa = true
 shadow_atlas_size = 1
 
-[node name="Camera" type="Camera" parent="Viewport"]
-transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.999454, -1 )
+[node name="Spatial" type="Spatial" parent="Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2 )
+
+[node name="Camera" type="Camera" parent="Viewport/Spatial"]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.999454, 0 )
 far = 400.0
 
 [node name="CollisionShape" type="CollisionShape" parent="."]

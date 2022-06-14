@@ -42,7 +42,7 @@ Globals="*res://Globals.gd"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/godotoro/plugin.cfg", "res://addons/ridiculous_coding/plugin.cfg" )
+enabled=PoolStringArray(  )
 
 [input]
 

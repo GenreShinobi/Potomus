@@ -12,6 +12,7 @@ onready var right: = $RayRight
 onready var left: = $RayLeft
 onready var down: = $RayDown
 onready var cam_ray: = $Camera/RayCamera
+onready var drop_point = $DropPoint
 onready var debug_cur_loc = $Camera/Debug/Viewport/VBoxContainer/HBoxContainer/CurrentLoc
 onready var debug_prev_loc = $Camera/Debug/Viewport/VBoxContainer/HBoxContainer2/PrevLoc
 onready var debug_cur_map = $Camera/Debug/Viewport/VBoxContainer/HBoxContainer3/CurMap
@@ -59,7 +60,6 @@ func _process(delta):
 func _physics_process(_delta):
 	if current_cell != null and is_instance_valid(current_cell):
 		current_cell.update_faces_again(world.maze_cells)
-		# current_cell.update_faces_again(world.hall_cells)
 		
 func collision_check(direction):
 	if direction != null and is_in_group("active"):
@@ -81,10 +81,7 @@ func player_check():
 	var world = get_tree().get_nodes_in_group("world")[0]
 	if get_actual_cell() != current_cell:
 		arrive_in_new_cell()
-		if maze_portal != null and previous_cell != null and Globals.current_map == Globals.MapType.MAZE:
-			maze_portal.global_transform.origin = maze_player.global_transform.origin
-			maze_portal.set_rotation(maze_player.get_rotation()+Vector3(0,PI,0))
-		if hall_portal != null and previous_cell != null and Globals.current_map == Globals.MapType.HALL and !Globals.recently_jumped and !Globals.portal_jumping:
+		if hall_portal != null and previous_cell != null and Globals.current_map == Globals.MapType.HALL and !Globals.portal_jumping:
 			world.remove_cell_from_hall()
 		if current_cell != previous_cell:
 			if previous_cell != null:
@@ -96,8 +93,9 @@ func player_check():
 					Globals.recently_jumped = false
 			if previous_cell != null and previous_cell.get_map_on() == Globals.MapType.MAZE:
 				previous_cell.set_return_rotation_by_player(maze_player)
+		if Globals.current_map == Globals.MapType.MAZE and !Globals.portal_jumping and !Globals.recently_jumped:
+			world.add_new_cell_to_hall(previous_cell)
 		
-			
 func get_direction(direction):
 	if not direction is RayCast: return
 	return direction.get_collider().global_transform.origin - global_transform.origin
@@ -182,16 +180,26 @@ func prepare_to_leave_cell(cell :Cell):
 
 func arrive_in_new_cell():
 	set_current_cell(get_actual_cell())
-	print("Arrived @ " + "" + Globals.MapType.keys()[Globals.current_map] + "." + String(get_current_cell().get_instance_id()) + "\n")
-	if Globals.current_map == Globals.MapType.MAZE and !Globals.portal_jumping and !Globals.recently_jumped:
-		world.add_new_cell_to_hall(previous_cell)
-		
+	if is_instance_valid(get_current_cell()):
+		print("Arrived @ " + "" + Globals.MapType.keys()[Globals.current_map] + "." + String(get_current_cell().get_instance_id()) + "\n")
+		if Globals.current_map == Globals.MapType.MAZE:
+			var maze_portal = get_tree().get_nodes_in_group("maze_portal")[0]
+			var maze_player = get_tree().get_nodes_in_group("maze_player")[0]
+			maze_portal.global_transform.origin = maze_player.global_transform.origin
+			maze_portal.set_rotation(maze_player.get_rotation()+Vector3(0,PI,0))
+			
 func ported_to_cell(cell :Cell):
 	if cell != null:
 		print("Ported to " + "[" + Globals.MapType.keys()[Globals.current_map] + "] " + String(cell.get_instance_id()) + "\n")
 
+func get_drop_point() -> Vector3:
+	return drop_point.global_transform.origin
+
+func get_drop_point_rotation() -> Vector3:
+	return drop_point.get_rotation()
+
 func move_from_maze_to_hall():
-	print("Porting to HALL")
+	print("Porting to HALL \n")
 	var hall_portal = get_tree().get_nodes_in_group("hall_portal")[0]
 	var maze_portal = get_tree().get_nodes_in_group("maze_portal")[0]
 	var maze_player = get_tree().get_nodes_in_group("maze_player")[0]
@@ -204,12 +212,12 @@ func move_from_maze_to_hall():
 	maze_player.remove_from_group("active")
 	hall_player.add_to_group("active")
 	hall_player.set_camera()
-#	maze_portal.global_transform.origin = maze_player.get_previous_cell().global_transform.origin
-	maze_portal.set_rotation(maze_portal.get_rotation() + Vector3(0, PI, 0))
+	maze_portal.global_transform.origin = maze_player.get_drop_point()
+	maze_portal.set_rotation(maze_player.get_drop_point_rotation())
 	world.add_new_cell_to_hall(previous_cell)
 
 func move_from_hall_to_maze():
-	print("Porting to MAZE")
+	print("Porting to MAZE \n")
 	var hall_portal = get_tree().get_nodes_in_group("hall_portal")[0]
 	var maze_portal = get_tree().get_nodes_in_group("maze_portal")[0]
 	var maze_player = get_tree().get_nodes_in_group("maze_player")[0]
@@ -219,9 +227,8 @@ func move_from_hall_to_maze():
 	Globals.current_map = Globals.MapType.MAZE
 	#chasing_cam.global_transform.origin = maze_player.global_transform.origin
 	maze_player.global_transform.origin = hall_player.get_current_cell().get_connected_cell().global_transform.origin
-	maze_player.set_rotation(maze_portal.get_rotation() + Vector3(0, PI, 0))
+	maze_player.set_rotation(maze_player.get_rotation() + Vector3(0, PI, 0))
 	hall_player.remove_from_group("active")
 	maze_player.add_to_group("active")
 	maze_player.set_camera()
-	hall_portal.set_rotation(hall_portal.get_rotation())
 	world.remove_cell_from_hall()
