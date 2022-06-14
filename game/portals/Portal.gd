@@ -1,4 +1,5 @@
 extends Spatial
+class_name PortKey
 
 
 export var color = Color.white
@@ -33,7 +34,8 @@ func _process(delta):
 				$Meshes/Front.material_override.set_shader_param("modulate", color)
 	else:
 		# Set the portal's camera transform to the player's camera relative to the other portal
-		var trans = other_portal.global_transform.inverse() * _player_cam.global_transform
+		var player_cam = get_tree().get_nodes_in_group("active")[0].get_camera() as Camera
+		var trans = other_portal.global_transform.inverse() * player_cam.global_transform
 		# Rotate by 180 degrees around and up axis because the camera should be facing the opposite way (180 degrees) at the other portal
 		trans = trans.rotated(Vector3.UP, PI)
 		$CamTransform.transform = trans
@@ -47,39 +49,39 @@ func _process(delta):
 		var normal = Vector3(0,0,1).rotated(Vector3(1,0,0), rot.x).rotated(Vector3(0,1,0), rot.y).rotated(Vector3(0,0,1), rot.z)
 		
 		# Loop through all tracked bodies
-		for body in tracked_bodies:
-			# Get the direction from the front face of the portal to the body
-			var body_dir = $Meshes/Front.global_transform.origin - body.global_transform.origin
-			
-			# If the body is a player
-			# then get the firection of the front face of the portal to the player's camera rather than the player itself.
-			if body is Player:
-				body_dir = $Meshes/Front. global_transform.origin - _player_cam.global_transofrm.origin
+#		for body in tracked_bodies:
+#			# Get the direction from the front face of the portal to the body
+#			var body_dir = $Meshes/Front.global_transform.origin - body.global_transform.origin
+#
+#			# If the body is a player
+#			# then get the firection of the front face of the portal to the player's camera rather than the player itself.
+#			if body is Player:
+#				body_dir = $Meshes/Front. global_transform.origin - _player_cam.global_transofrm.origin
 			
 			# If the angle between the direction to the body and
 			# the portal's normal is < 90 degrees (the body is behind the portal),
 			# then teleport the body to the other portal
-			if normal.dog(body_dir) > 0:
-				_teleport_to_other_portal(body)
-
-func _teleport_to_other_portal(body):
-	# Remove the body from being tracked by the portal
-	var i = tracked_bodies.find(body)
-	tracked_bodies.remove(i)
-
-	# Set the body's position to be at the other portal and rotated 180 degrees
-	# so that the player is facing away from the portal
-	var offset = global_transform.inverse() * body.global_transform
-	var trans = other_portal.global_transform * offset.rotated(Vector3.UP, PI)
-	body.global_transform = trans
-	
-	# If the body is the player,
-	# get the difference in rotation of this portal and the other portal
-	# and rotate the player's velocity by that
-	# +180 degrees on the y axis
-	if body is Player:
-		var r = other_portal.global_transform.basis.get_euler() - global_transform.basis.get_euler()
-		body.velocity = body.velocity \
-			.rotated(Vector3(1, 0, 0), r.x) \
-			.rotated(Vector3(0, 1, 0), r.y + PI) \
-			.rotated(Vector3(0, 0, 1), r.z)
+#			if normal.dog(body_dir) > 0:
+#				_teleport_to_other_portal(body)
+#
+#func _teleport_to_other_portal(body):
+#	# Remove the body from being tracked by the portal
+#	var i = tracked_bodies.find(body)
+#	tracked_bodies.remove(i)
+#
+#	# Set the body's position to be at the other portal and rotated 180 degrees
+#	# so that the player is facing away from the portal
+#	var offset = global_transform.inverse() * body.global_transform
+#	var trans = other_portal.global_transform * offset.rotated(Vector3.UP, PI)
+#	body.global_transform = trans
+#
+#	# If the body is the player,
+#	# get the difference in rotation of this portal and the other portal
+#	# and rotate the player's velocity by that
+#	# +180 degrees on the y axis
+#	if body is Player:
+#		var r = other_portal.global_transform.basis.get_euler() - global_transform.basis.get_euler()
+#		body.velocity = body.velocity \
+#			.rotated(Vector3(1, 0, 0), r.x) \
+#			.rotated(Vector3(0, 1, 0), r.y + PI) \
+#			.rotated(Vector3(0, 0, 1), r.z)

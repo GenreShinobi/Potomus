@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "Player",
 "language": "GDScript",
 "path": "res://player/player.gd"
+}, {
+"base": "Spatial",
+"class": "PortKey",
+"language": "GDScript",
+"path": "res://portals/portal.gd"
 } ]
 _global_script_class_icons={
 "Cell": "",
-"Player": ""
+"Player": "",
+"PortKey": ""
 }
 
 [application]

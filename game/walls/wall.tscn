@@ -1,0 +1,68 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://walls/wall.gd" type="Script" id=1]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+render_mode unshaded;
+uniform vec4 modulate : hint_color;
+uniform sampler2D overlay : hint_albedo;
+uniform sampler2D texture_albedo : hint_albedo;
+
+void fragment() {
+	vec2 base_uv = SCREEN_UV;
+	vec4 view = texture(texture_albedo, base_uv);
+	
+	vec2 outline_uv = UV;
+	vec4 outline = texture(overlay, outline_uv);
+	
+	if(outline.rgb == vec3(1.0, 0.0, 0.0)){
+		ALBEDO = view.rgb;
+	}else {
+		ALBEDO = outline.rgb * modulate.rgb;
+		ALPHA = outline.a;
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/modulate = Color( 0.0784314, 0.141176, 0.913725, 1 )
+
+[sub_resource type="QuadMesh" id=3]
+material = SubResource( 2 )
+
+[sub_resource type="BoxShape" id=4]
+
+[node name="Wall" type="Area" groups=["wall"]]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0 )
+script = ExtResource( 1 )
+
+[node name="Front" type="MeshInstance" parent="."]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="RayCast" type="RayCast" parent="Front"]
+enabled = true
+cast_to = Vector3( 0, 0, -3 )
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 5, 5 )
+fxaa = true
+hdr = false
+keep_3d_linear = true
+render_target_update_mode = 3
+shadow_atlas_size = 2
+
+[node name="Camera" type="Camera" parent="Viewport"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0 )
+far = 400.0
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.1, 0, 0, 0 )
+shape = SubResource( 4 )
+
+[node name="CamTransform" type="RemoteTransform" parent="."]
+remote_path = NodePath("../Viewport/Camera")

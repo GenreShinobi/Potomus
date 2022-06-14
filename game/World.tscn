@@ -1,24 +1,39 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://World.gd" type="Script" id=1]
 [ext_resource path="res://player/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://map/Map.tscn" type="PackedScene" id=3]
-[ext_resource path="res://portals/portal.tscn" type="PackedScene" id=4]
+[ext_resource path="res://portals/portal-maze.tscn" type="PackedScene" id=4]
+[ext_resource path="res://cells/cell.tscn" type="PackedScene" id=5]
 [ext_resource path="res://map/Hall.tscn" type="PackedScene" id=6]
+[ext_resource path="res://portals/portal-hall.tscn" type="PackedScene" id=8]
 
 [node name="World" type="Spatial" groups=["world"]]
 script = ExtResource( 1 )
 Map = ExtResource( 3 )
 Hall = ExtResource( 6 )
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
+[node name="Player" parent="." groups=["active", "maze_player"] instance=ExtResource( 2 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0 )
 
 [node name="Portals" type="Spatial" parent="."]
 
-[node name="B" parent="Portals" groups=["chasing_portal"] instance=ExtResource( 4 )]
+[node name="PortalMaze" parent="Portals" groups=["maze_portal"] instance=ExtResource( 4 )]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 0, 1, -64.84 )
+
+[node name="PortalHall" parent="Portals" groups=["hall_portal"] instance=ExtResource( 8 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2, 0, 100 )
 
 [node name="Maze" type="Spatial" parent="."]
 
 [node name="Hall" type="Spatial" parent="." groups=["hall"]]
+
+[node name="Cell" parent="Hall" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 100 )
+north_is_on = false
+south_is_on = false
+east_is_on = false
+west_is_on = false
+
+[node name="Player2" parent="." groups=["hall_player"] instance=ExtResource( 2 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 100 )
